@@ -1,5 +1,6 @@
 import time
 import pyautogui as pa
+import pyperclip
 import requests
 import random
 from pynput import keyboard
@@ -8,11 +9,9 @@ stop_typing = False
 
 def get_random_words():
     number_of_words = random.randint(1, 3)
-    #url = f"https://random-word-api.herokuapp.com/word?number={number_of_words}"
-    url = f"https://random-word-api.vercel.app/api?words={number_of_words}"
-
+    url = f"https://random-word-api.herokuapp.com/word?number={number_of_words}"
     response = requests.get(url)
-
+    
     if response.status_code == 200:
         try:
             words = response.json()
@@ -33,6 +32,7 @@ def on_press(key):
     global stop_typing
     if key == keyboard.Key.esc:
         stop_typing = True
+        print("Script encerrado")
         return False  # Stop the listener
 
 # Start the keyboard listener
@@ -41,11 +41,12 @@ listener.start()
 
 pa.PAUSE = 0.25
 pa.press('win')
-time.sleep(0.25)
-pa.write('pesquisador bing')
-time.sleep(0.5)
+pa.write('opera')
 pa.press('enter')
-time.sleep(4)
+time.sleep(1)
+pa.click(-1034, 52)
+pa.write('inicio das pesquisas')
+pa.press('enter')
 
 for i in range(1, 31):
     if stop_typing:
@@ -61,7 +62,7 @@ for i in range(1, 31):
     print(sentence)
 
     # Write the concatenated sentence letter by letter
-    pa.click(-1397, 122)
+    pa.click(-1248, 167)
     pa.hotkey('ctrl', 'a')
     pa.press('delete')
     write_text_letter_by_letter(sentence)
